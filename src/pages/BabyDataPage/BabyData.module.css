@@ -1,0 +1,142 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  overflow-x: hidden;
+}
+/* body of header */
+
+.containerHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #fbfbff;
+  padding-bottom: 50px;
+  flex-wrap: wrap; /* works to be receptive */
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 1.2rem;
+  width: 10px;
+}
+
+.navLinks {
+  display: flex;
+  gap: 45px;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.navLinks a {
+  text-decoration: none;
+  color: black;
+  font-size: 0.95rem;
+}
+.btnmain {
+  border: none;
+}
+
+.btnmain:hover {
+  color: #a7d7f9;
+}
+.mainContainer {
+  width: 100vw;
+  box-sizing: border-box;
+  padding: 1%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .cardContainer {
+    flex: 0 1 100%;
+  }
+}
+
+.cardContainer {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  flex: 0 1 calc(50% - 10px);
+  box-sizing: border-box;
+  padding: 1%;
+  width: 45%;
+  height: 30%;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.buttonAdd {
+  width: 60px;
+  height: 60px;
+  padding: 0;
+  border-radius: 999px;
+  font-size: 24px;
+  box-sizing: border-box;
+  background-color: #a7d7f9;
+  color: white;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  z-index: 1000;
+  font-size: 24px;
+  line-height: 1;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.buttonAdd:hover {
+  background-color: #7bbbef;
+}
+
+.modalContainer {
+  border: 1px solid black;
+}
+
+.radioContainer {
+  display: flex;
+}
+
+.cancelButton {
+  color: #a7d7f9;
+}
+
+.submitButton {
+  background-color: #a7d7f9;
+}
+
+.addButton {
+  background-color: #a7d7f9;
+  color: black;
+}
+.messageContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.containerend {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fbfbff;
+  flex-wrap: wrap;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  padding: 10px 20px;
+  width: 100%;
+}

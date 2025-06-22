@@ -1,0 +1,58 @@
+button{
+  width: 100%;
+  max-width: 400px;
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.textContainer{
+  gap: 5px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+.homeImage{
+  width: 50vw;
+  max-width: 500px;
+}
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .mainContainer {
+    flex-direction: row;
+    gap: 50px;
+    justify-content: center;
+    width: 100vw;
+  }
+  .textContainer{
+    margin-bottom: 60px;
+  }
+  h1 {
+    font-size: 24px;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+}
+
+h1 {
+  font-size: 32px;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+h1, h2{
+  margin: 0;
+}
