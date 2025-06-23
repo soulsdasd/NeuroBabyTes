@@ -46,3 +46,16 @@
 .iconHeader .rotated{
     display: none;
 }
+
+.buttonForm {
+  background-color: black;
+  color: white;
+  bottom: 20px;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+.buttonForm:hover {
+  transform: scale(1.1);
+  transition: 1s;
+}
