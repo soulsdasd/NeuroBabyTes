@@ -44,6 +44,12 @@ function Prueba() {
                     <PerinatalForm id_bebe={id}/>
                 </div>
                 )}
+
+                <button
+                  className={Styles.buttonForm}
+                  onClick={() => navigate("/babyData")}>
+                  Regresar
+                </button>
             </div>
         </>
     );
