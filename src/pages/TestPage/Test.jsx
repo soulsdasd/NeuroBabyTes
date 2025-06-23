@@ -1,6 +1,6 @@
 // src/App.jsx
 import Styles from './Test.module.css'
-
+import { useNavigate } from "react-router-dom";
 import PrenatalForm from '../../components/PrenatalForm';
 import PerinatalForm from '../../components/PerinatalForm';
 
@@ -16,8 +16,9 @@ function Prueba() {
     //const [valor, setValor] = useState('');
     const [isOpenPrenatal, setIsOpenPrenatal] = useState(false);
     const [isOpenPerinatal, setIsOpenPerinatal] = useState(false);
-    
 
+    const navigate = useNavigate();
+    
     const { id } = useParams();
 
     return (
