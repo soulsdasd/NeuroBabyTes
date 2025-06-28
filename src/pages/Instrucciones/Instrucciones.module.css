@@ -1,0 +1,68 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* body of header */
+
+.containerHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #fbfbff;
+  padding-bottom: 50px;
+  flex-wrap: wrap; /* works to be receptive */
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 1.2rem;
+  width: 100px;
+}
+
+.navLinks {
+  display: flex;
+  gap: 50px;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.navLinks a {
+  text-decoration: none;
+  color: black;
+  font-size: 0.95rem;
+}
+.btnmain {
+  border: none;
+}
+
+.btnmain:hover {
+  color: #a7d7f9;
+}
+
+/* body of instructions */
+
+.instructionscontainer {
+  background-color: #fbfbff;
+  max-width: 2500px;
+  height: 750px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  align-items: center;
+  text-align: center;
+}
+
+/* body of flotter */
+.containerflotter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fbfbff;
+  flex-wrap: wrap;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  padding: 10px 20px;
+  width: 100%;
+}
