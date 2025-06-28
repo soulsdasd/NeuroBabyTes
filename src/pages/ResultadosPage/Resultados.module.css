@@ -1,0 +1,56 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* body of instructions */
+
+.mainContainer {
+  background-color: #fbfbff;
+  max-width: 2500px;
+  height: 750px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  align-items: center;
+  text-align: center;
+  padding: 2%;
+}
+
+.chartContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.pieContainer{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 5%;
+}
+
+.infoContainer{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  text-align: justify;
+  background-color: #a7d7f9;
+  min-width: 200px;
+  border-radius: 20px;
+  padding: 2%;
+  font-size: 20px;
+}
+
+.recomendacionContainer{
+  background-color: #ffe5e5;
+  border: 2px solid #ff4d4d;
+  color: #b30000;
+  border-radius: 20px;
+  padding: 1%;
+}
+
+.contactoLink{
+  text-decoration: underline;
+  cursor: pointer;
+}

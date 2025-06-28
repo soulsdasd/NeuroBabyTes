@@ -1,0 +1,43 @@
+html, body{
+  width: 100%;
+  height: 100%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* body of home */
+
+.bodycontainer {
+  background-color: #a7d7f9;
+  max-width: 2500px;
+  min-height: 77vh;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  align-items: center;
+  text-align: center;
+  box-sizing: border-box;
+}
+.titlewelcome {
+  font-size: 40px;
+}
+.babypicture {
+  width: 300px;
+  margin-top: 2%;
+}
+
+h2 {
+  font-size: 40px;
+}
+
+.btnstart {
+  border-radius: 10px;
+  width: 150px;
+  height: 50px;
+}
+
+.btnstart:hover {
+  transform: scale(1.2);
+  transition: 1s;
+}

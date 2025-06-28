@@ -1,0 +1,49 @@
+.mainContainer{
+    width: 100vw;
+    height: auto;
+    padding: 2%;
+    min-height: 100vh;
+}
+.formContainer{
+    width: 100%;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding: 2%;
+    display: flex;
+    align-items: stretch; 
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    border: 2px solid black;
+    border-top: 0px solid black !important;
+    transition: all .5s;
+}
+.headerContainer{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border: 2px solid black;
+    background-color: #A7D7F9;
+    color: black;
+    padding: 5px;
+    padding-right: 2%;
+    padding-left: 1%;
+    cursor: pointer;
+}
+
+.cardContainer{
+    margin-bottom: 1%;
+}
+.iconHeader{
+    margin-left: auto;
+    transition: all .3s;
+}
+
+.rotated {
+    transform: rotate(180deg);
+}
+
+.iconHeader .rotated{
+    display: none;
+}

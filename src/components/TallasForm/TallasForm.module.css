@@ -1,0 +1,17 @@
+.formGroup {
+  display: flex;
+  gap: 16px;
+  margin-top: 1%;
+  align-items: center;
+}
+.mainContainer{
+    width: 100%;
+}
+
+.textContainer{
+    margin-top: 1%;
+    width: auto;
+    height: auto;
+    align-items: center;
+    justify-content: center;
+}
