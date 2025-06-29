@@ -19,7 +19,7 @@ export default function BabyData() {
 
   const [bebes, setBebes] = useState([]);
 
-  const [mensaje, setMensaje] = useState("");
+  const [mensaje] = useState("");
   const [mensajePantalla, setMensajePantalla] = useState('');
 
 

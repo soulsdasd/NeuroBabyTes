@@ -1,6 +1,6 @@
 import { supabase } from '../../supabaseClient';
 import { useUsuario } from '../UserProviderComponent/UserProviderComponent';
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import styles from "../../pages/BabyDataPage/BabyData.module.css";
 
 import {
@@ -26,6 +26,8 @@ function DialogAddComponent(){
     const [estatura_bebe, setEstaturaBebe] = useState("");
     const [genero, setGenero] = useState("");
     const {usuario, loading} = useUsuario();
+
+    console.log(loading);
 
       const handleOpen = () => setIsOpen(true);
       const handleClose = () => setIsOpen(false);
