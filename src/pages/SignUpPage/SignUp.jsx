@@ -6,6 +6,7 @@ import { supabase } from "../../supabaseClient";
 
 import { FaUserDoctor } from "react-icons/fa6";
 import { IoPersonSharp } from "react-icons/io5";
+import Notification from "../../components/NotificacionComponent/NotificacionComponent";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -19,25 +20,63 @@ function SignUp() {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [mensaje, setMensaje] = useState("");
-  const [rol, setRol] = useState("");
+  const [rol, setRol] = useState("tutor");
+  const [notificacion, setNotificacion] = useState(null);
 
-  const handleSignUp = async (e) => {
-    e.preventDefault();
+const handleSignUp = async (e) => {
+  e.preventDefault();
 
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-    });
+  const { error: signInError } = await supabase.auth.signInWithPassword({
+    email,
+    password: "temporal",
+  });
 
-    if (error) {
-      setMensaje(`Error: ${error.message}`);
-      setTipomensaje("Error");
+if (signInError?.message === "Invalid login credentials") {
+  setNotificacion({
+    type: "error",
+    message: "Este correo ya está registrado.",
+  });
+  return;
+}
+
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+  });
+
+  if (error) {
+    setMensaje(`Error: ${error.message}`);
+    setTipomensaje("Error");
+    return;
+  }
+
+  if (data && data.user) {
+    const userId = data.user.id;
+
+    // Primero verificamos si ya hay perfil con este id_perfil
+    const { data: existingProfile, error: selectError } = await supabase
+      .from("perfiles")
+      .select("*")
+      .eq("id_perfil", userId)
+      .single();
+
+    if (selectError && selectError.code !== 'PGRST116') {
+      // Error inesperado al consultar el perfil
+      setNotificacion({
+        type: 'error',
+        message: `Error al consultar perfil: ${selectError.message}`
+      });
       return;
     }
 
-    if (data && data.user) {
-      const userId = data.user.id;
-
+    if (existingProfile) {
+      // Ya existe perfil
+      setNotificacion({
+        type: 'error',
+        message: 'Usuario ya existente'
+      });
+    } else {
+      // No existe perfil, insertamos
       const { error: insertError } = await supabase
         .from("perfiles")
         .insert([{ id_perfil: userId, nombre_perfil: name, rol_perfil: rol }]);
@@ -46,16 +85,25 @@ function SignUp() {
         setMensaje(`Usuario registrado, pero no se pudo guardar perfil`);
         setTipomensaje("Error");
       } else {
+        setNotificacion({
+          type: 'success',
+          message: '¡Registro exitoso! Revisa tu correo para confirmar tu cuenta.'
+        });
         setMensaje("Registro exitoso. Revisa tu correo para confirmar.");
         setTipomensaje("Exito");
       }
-    } else {
-      setMensaje(""); // limpieza
-      setTimeout(() => {
-        setMensaje("Registro fallido. Intenta de nuevo.");
-      }, 0);
     }
-  };
+  } else {
+    setNotificacion({
+      type: 'error',
+      message: 'Registro fallido. Intenta de nuevo.'
+    });
+    setMensaje(""); // limpieza
+    setTimeout(() => {
+      setMensaje("Registro fallido. Intenta de nuevo.");
+    }, 0);
+  }
+};
 
   const handleChange = (e) => {
     setRol(e.target.value);
@@ -170,6 +218,9 @@ function SignUp() {
         </div>
         <div className={styles.imageContainer}>
           <img src="/src/assets/login.jpeg" alt="" />
+        </div>
+        <div>
+          <Notification notification={notificacion} onClose={() => setNotificacion(null)}/>
         </div>
       </div>
     </>

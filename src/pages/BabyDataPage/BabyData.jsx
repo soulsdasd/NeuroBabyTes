@@ -7,7 +7,7 @@ import DialogAddComponent from "../../components/DialogAddComponent/DialogAddCom
 import DialogLinkComponent from "../../components/DialogLinkComponent/DialogLinkComponent";
 import CircularProgress from '@mui/material/CircularProgress';
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FaBaby } from "react-icons/fa";
 import { supabase } from "../../supabaseClient";
 
@@ -19,7 +19,6 @@ export default function BabyData() {
 
   const [bebes, setBebes] = useState([]);
 
-  const [mensaje] = useState("");
   const [mensajePantalla, setMensajePantalla] = useState('');
 
 
@@ -30,7 +29,7 @@ export default function BabyData() {
     navigate(`/Resultados/${idBebe}`);
   };
 
-  async function fetchBebes() {
+  const fetchBebes = useCallback(async () => {
     console.log("usuario: ",usuario );
     if(!usuario.id_perfil || !usuario.rol_perfil) return;
     console.log("Rol: ", usuario.rol_perfil)
@@ -73,11 +72,11 @@ export default function BabyData() {
       setMensajePantalla('Actualmente no hay pacientes registrados. Utilice el botón en la esquina inferior derecha para añadir uno.');
     }
     }
-  };
+  }, [usuario])
 
   useEffect(() => {
     fetchBebes();
-  }, [usuario, usuario.id_perfil]);
+  }, [fetchBebes]);
 
   if (loading || !usuario) {
     return <p>Cargando usuario...</p>; // o un spinner
@@ -151,10 +150,6 @@ export default function BabyData() {
             <DialogAddComponent />
           )}
 
-        </div>
-
-        <div className={styles.messageContainer}>
-          <p>{mensaje}</p>
         </div>
           <Footer />
         </div>
