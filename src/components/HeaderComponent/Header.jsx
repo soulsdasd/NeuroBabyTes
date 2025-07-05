@@ -17,6 +17,7 @@ export default function Header() {
     if (error) {
       console.error("Error al cerrar sesión:", error.message);
     } else {
+      localStorage.removeItem("usuario");
       navigate("/login"); // redirige al login o página de inicio
     }
   };

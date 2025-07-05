@@ -15,93 +15,78 @@ function SignUp() {
     navigate("/login");
   };
 
-  const [tipomensaje, setTipomensaje] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const [mensaje, setMensaje] = useState("");
   const [rol, setRol] = useState("tutor");
   const [notificacion, setNotificacion] = useState(null);
 
 const handleSignUp = async (e) => {
   e.preventDefault();
 
-  const { error: signInError } = await supabase.auth.signInWithPassword({
-    email,
-    password: "temporal",
-  });
+  // Validar campos
+  if (!email || !password || !name || !rol) {
+    setNotificacion({ type: 'error', message: 'Todos los campos son obligatorios' });
+    return;
+  }
 
-if (signInError?.message === "Invalid login credentials") {
-  setNotificacion({
-    type: "error",
-    message: "Este correo ya está registrado.",
-  });
-  return;
-}
+  // Comprobar si el usuario ya existe
+  const { data: existingUsers, error: queryError } = await supabase
+    .from('auth.users')
+    .select('id')
+    .eq('email', email);
 
-  const { data, error } = await supabase.auth.signUp({
+  if (queryError) {
+    setNotificacion({ type: 'error', message: 'Error al verificar el correo' });
+    return;
+  }
+
+  if (existingUsers.length > 0) {
+    setNotificacion({
+      type: 'error',
+      message: 'Correo ya registrado. Ingrese otro o inicie sesión'
+    });
+    return;
+  }
+
+  // Registrar usuario
+  const { data, error: signUpError } = await supabase.auth.signUp({
     email,
     password,
   });
 
-  if (error) {
-    setMensaje(`Error: ${error.message}`);
-    setTipomensaje("Error");
+  if (signUpError) {
+    setNotificacion({
+      type: 'error',
+      message: 'No se pudo registrar el usuario: ' + signUpError.message
+    });
     return;
   }
 
-  if (data && data.user) {
-    const userId = data.user.id;
-
-    // Primero verificamos si ya hay perfil con este id_perfil
-    const { data: existingProfile, error: selectError } = await supabase
-      .from("perfiles")
-      .select("*")
-      .eq("id_perfil", userId)
-      .single();
-
-    if (selectError && selectError.code !== 'PGRST116') {
-      // Error inesperado al consultar el perfil
-      setNotificacion({
-        type: 'error',
-        message: `Error al consultar perfil: ${selectError.message}`
-      });
-      return;
-    }
-
-    if (existingProfile) {
-      // Ya existe perfil
-      setNotificacion({
-        type: 'error',
-        message: 'Usuario ya existente'
-      });
-    } else {
-      // No existe perfil, insertamos
-      const { error: insertError } = await supabase
-        .from("perfiles")
-        .insert([{ id_perfil: userId, nombre_perfil: name, rol_perfil: rol }]);
-
-      if (insertError) {
-        setMensaje(`Usuario registrado, pero no se pudo guardar perfil`);
-        setTipomensaje("Error");
-      } else {
-        setNotificacion({
-          type: 'success',
-          message: '¡Registro exitoso! Revisa tu correo para confirmar tu cuenta.'
-        });
-        setMensaje("Registro exitoso. Revisa tu correo para confirmar.");
-        setTipomensaje("Exito");
-      }
-    }
-  } else {
+  const userId = data?.user?.id;
+  if (!userId) {
     setNotificacion({
       type: 'error',
-      message: 'Registro fallido. Intenta de nuevo.'
+      message: 'Registro incompleto: no se obtuvo ID de usuario.'
     });
-    setMensaje(""); // limpieza
-    setTimeout(() => {
-      setMensaje("Registro fallido. Intenta de nuevo.");
-    }, 0);
+    return;
+  }
+
+  // Insertar perfil
+  const { error: insertError } = await supabase
+    .from("perfiles")
+    .insert([{ id_perfil: userId, nombre_perfil: name, rol_perfil: rol }]);
+
+  if (insertError) {
+    setNotificacion({
+      type: 'error',
+      message: 'Usuario registrado, pero no se pudo guardar perfil'
+    });
+  } else {
+    setNotificacion({
+      type: 'success',
+      message: '¡Registro exitoso! Revisa tu correo para confirmar tu cuenta.'
+    });
   }
 };
 
@@ -193,19 +178,6 @@ if (signInError?.message === "Invalid login credentials") {
               <button type="submit" className={styles.buttonForm}>
                 Registrarse
               </button>
-
-              <div className={styles.mensajeContainer}>
-                {mensaje && (
-                  <p
-                    className={
-                      tipomensaje === "Exito"
-                        ? styles.mensajeExito
-                        : styles.mensajeError
-                    }>
-                    {mensaje}
-                  </p>
-                )}
-              </div>
 
               <p>
                 ¿Ya tienes una cuenta?{" "}
